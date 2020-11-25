@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol DismissDelegate: class {
+  func dismissVC()
+}
+
 class HabitDetailsViewController: UITableViewController {
   
   var habit: Habit?
@@ -36,6 +40,7 @@ class HabitDetailsViewController: UITableViewController {
     let editHabitVC = HabitViewController()
     editHabitVC.navTitle = "Править"
     editHabitVC.habit = self.habit
+    editHabitVC.dismissDelegate = self
     present(editHabitVC, animated: true, completion: nil)
   }
   
@@ -63,4 +68,11 @@ class HabitDetailsViewController: UITableViewController {
 }
 
 class TableViewCell: UITableViewCell {
+}
+
+extension HabitDetailsViewController: DismissDelegate {
+  func dismissVC() {
+    print("dismiss delegate")
+    navigationController?.popViewController(animated: false)
+  }
 }

@@ -12,9 +12,11 @@ protocol ReloadDataDelegate: class {
   func reloadHabits()
 }
 
+
 class HabitsViewController: UIViewController {
   
   let habitVC = HabitViewController()
+  let detailsVC = HabitDetailsViewController()
   
   private lazy var collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
@@ -43,7 +45,7 @@ class HabitsViewController: UIViewController {
     habitVC.navTitle = "Создать"
     navigationController?.present(habitVC, animated: true, completion: nil)
   }
-//  MARK: Large title
+  //  MARK: Large title
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     navigationController?.navigationBar.prefersLargeTitles = true
@@ -80,14 +82,16 @@ extension HabitsViewController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
     if indexPath.section == 0 {
+      
       let progressCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ProgressCollectionViewCell.self), for: indexPath) as! ProgressCollectionViewCell
       let progress = HabitsStore.shared.todayProgress
       progressCell.textLabel.text = HabitsStore.shared.habits.isEmpty ? "Добавьте привычку!" : "Все получится!"
       progressCell.checkProgress(progress: progress)
       return progressCell
-    } else {
-      let habitCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HabitCollectionViewCell.self), for: indexPath) as! HabitCollectionViewCell
       
+    } else {
+      
+      let habitCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HabitCollectionViewCell.self), for: indexPath) as! HabitCollectionViewCell
       let habit: Habit = HabitsStore.shared.habits[indexPath.item]
       habitCell.configure(habit: habit)
       habitCell.reloadDelegate = self
@@ -100,7 +104,8 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
   private var baseInset: CGFloat { return 16 }
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    let detailsVC = HabitDetailsViewController()
+    guard indexPath.section != 0 else { return }
+    
     detailsVC.navigationItem.title = HabitsStore.shared.habits[indexPath.item].name
     detailsVC.habit = HabitsStore.shared.habits[indexPath.item]
     navigationController?.pushViewController(detailsVC, animated: true)
@@ -131,8 +136,9 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
 extension HabitsViewController: ReloadDataDelegate {
   
   func reloadHabits() {
-    print("received")
+    print("reload delegate")
     collectionView.reloadData()
   }
 }
+
 

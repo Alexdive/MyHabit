@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,9 +20,6 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eHX-gS-CLA">
                                 <rect key="frame" x="16" y="160" width="382" height="653"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="653" id="CcE-mU-Dfl"/>
-                                </constraints>
                                 <string key="text">Прохождение этапов, за которые за 21 день вырабатывается привычка, подчиняется следующему алгоритму:
 
 1. Провести 1 день без обращения к старым привычкам, стараться вести себя так, как будто цель, загаданная в перспективу, находится на расстоянии шага.
@@ -56,12 +54,13 @@
                         <viewLayoutGuide key="safeArea" id="3oe-yk-I1U"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="aAZ-Sx-291" firstAttribute="leading" secondItem="eHX-gS-CLA" secondAttribute="leading" id="0J2-Cn-KEa"/>
                             <constraint firstItem="aAZ-Sx-291" firstAttribute="centerX" secondItem="hhj-Rj-Cte" secondAttribute="centerX" id="61V-Oy-eUb"/>
                             <constraint firstItem="aAZ-Sx-291" firstAttribute="leading" secondItem="3oe-yk-I1U" secondAttribute="leading" constant="16" id="FHd-da-BBc"/>
+                            <constraint firstItem="eHX-gS-CLA" firstAttribute="leading" secondItem="3oe-yk-I1U" secondAttribute="leading" constant="16" id="cuq-hg-Sjb"/>
                             <constraint firstItem="eHX-gS-CLA" firstAttribute="top" secondItem="aAZ-Sx-291" secondAttribute="bottom" constant="16" id="egw-rW-wrx"/>
+                            <constraint firstItem="3oe-yk-I1U" firstAttribute="trailing" secondItem="eHX-gS-CLA" secondAttribute="trailing" constant="16" id="noi-aE-f2H"/>
                             <constraint firstItem="aAZ-Sx-291" firstAttribute="top" secondItem="3oe-yk-I1U" secondAttribute="top" constant="22" id="qvu-M8-85u"/>
-                            <constraint firstItem="aAZ-Sx-291" firstAttribute="trailing" secondItem="eHX-gS-CLA" secondAttribute="trailing" id="xDv-2L-k2H"/>
+                            <constraint firstItem="eHX-gS-CLA" firstAttribute="bottom" secondItem="3oe-yk-I1U" secondAttribute="bottom" id="sMA-tj-UTT"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Информация" id="82O-b1-QrE"/>
@@ -128,7 +127,9 @@
         <scene sceneID="s9i-ok-BxX">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ImM-Hm-thk" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Информация" image="info.circle.fill" catalog="system" id="54i-cE-cms"/>
+                    <tabBarItem key="tabBarItem" title="Информация" id="54i-cE-cms">
+                        <imageReference key="image" image="info.circle.fill" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ahe-cg-LFK">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

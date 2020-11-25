@@ -14,9 +14,13 @@ class HabitViewController: UIViewController {
   
   weak var reloadDelegate: ReloadDataDelegate?
   
+  weak var dismissDelegate: DismissDelegate?
+  
   var habit: Habit?
   
-  var parentVC: HabitsViewController?
+  var navTitle: String?
+  
+  private lazy var habitName = ""
   
   private lazy var nameLabel: UILabel = {
     let label = UILabel()
@@ -25,8 +29,6 @@ class HabitViewController: UIViewController {
     label.toAutoLayout()
     return label
   }()
-  
-  private lazy var habitName = ""
   
   private lazy var habitNameField: UITextField = {
     let textField = UITextField()
@@ -117,8 +119,6 @@ class HabitViewController: UIViewController {
     return label
   }()
   
-  var navTitle: String?
-  
   //  MARK: ViewDidLoad
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -139,16 +139,16 @@ class HabitViewController: UIViewController {
   }
   
   //  MARK: Actions
-  @objc private func dismissEdit(sender: AnyObject) {
-    print("Dismissed")
-    dismiss(animated: true, completion: nil)
-  }
-  
   private func loadHabitData(habit: Habit) {
     habitNameField.text = habit.name
     habitName = habit.name
     timePicker.date = habit.date
     setColorButton.backgroundColor = habit.color
+  }
+  
+  @objc private func dismissEdit(sender: AnyObject) {
+    print("Dismissed")
+    dismiss(animated: true, completion: nil)
   }
   
   @objc private func saveHabit() {
@@ -158,7 +158,8 @@ class HabitViewController: UIViewController {
                            date: timePicker.date,
                            color: setColorButton.backgroundColor!)
       store.habits.append(newHabit)
-      print("Added new habit")
+      store.save()
+      print("Added new \(newHabit.name)")
     } else {
       if let oldHabit = habit {
         oldHabit.name = habitName
@@ -173,20 +174,16 @@ class HabitViewController: UIViewController {
   }
   
   @objc func deleteHabit() {
-    guard let habitForDelete = habit else {
-      return
-    }
-    let alertController = UIAlertController(title: "Удалить привычку", message: "Вы хотите удалить привычку \(habitForDelete.name)?", preferredStyle: .alert)
+    
+    let alertController = UIAlertController(title: "Удалить привычку", message: "Вы хотите удалить привычку \(habit!.name)?", preferredStyle: .alert)
     
     let cancelAction = UIAlertAction(title: "Отмена", style: .default)
     
     let deleteAction = UIAlertAction(title: "Удалить", style: .destructive) { _ in
-      if let index = HabitsStore.shared.habits.firstIndex(of: habitForDelete) {
+      if let index = HabitsStore.shared.habits.firstIndex(of: self.habit!) {
         HabitsStore.shared.habits.remove(at: index)
-        if let parentController = self.parentVC {
-          parentController.navigationController?.popViewController(animated: false)
-        }
         self.dismiss(animated: true, completion: nil)
+        self.dismissDelegate?.dismissVC()
       }
     }
     alertController.addAction(cancelAction)
@@ -199,7 +196,6 @@ class HabitViewController: UIViewController {
   }
   
   @objc private func setColorButtonAction(_ sender: Any) {
-    colorPicker.delegate = self
     self.present(colorPicker, animated: true)
   }
   
@@ -208,21 +204,8 @@ class HabitViewController: UIViewController {
   }
   
   //  MARK: Helpers
-  func frameForView(text:String, font:UIFont) -> CGRect {
-    let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
-    label.numberOfLines = 0
-    label.lineBreakMode = NSLineBreakMode.byWordWrapping
-    label.font = font
-    label.text = text
-    label.sizeToFit()
-    return label.frame
-  }
-  
   private func setupViews() {
     let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
-    
-    view.addSubview(navBar)
-    
     let navItem = UINavigationItem(title: navTitle!)
     let dismissItem = UIBarButtonItem(title: "Отменить", style: .done, target: self, action: #selector(dismissEdit))
     let saveItem = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(saveHabit))
@@ -232,8 +215,9 @@ class HabitViewController: UIViewController {
     saveItem.tintColor = UIColor.AppColor.purple
     navItem.rightBarButtonItem = saveItem
     navItem.leftBarButtonItem = dismissItem
-    navBar.setItems([navItem], animated: true)
+    navBar.setItems([navItem], animated: false)
     
+    view.addSubview(navBar)
     view.addSubview(nameLabel)
     view.addSubview(habitNameField)
     view.addSubview(colorLabel)
@@ -283,7 +267,7 @@ class HabitViewController: UIViewController {
       timePicker.widthAnchor.constraint(equalToConstant: view.frame.width - baseInset*2),
       
       deleteHabitLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      deleteHabitLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
+      deleteHabitLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
       
     ]
     NSLayoutConstraint.activate(constraints)

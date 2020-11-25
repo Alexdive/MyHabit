@@ -14,7 +14,6 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     let label = UILabel()
     label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
     label.textColor = .systemGray
-//    label.text = "Все получится!"
     label.toAutoLayout()
     return label
   }()
