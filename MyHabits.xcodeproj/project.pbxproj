@@ -7,15 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50167C30256CB4710021713E /* ToAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50167C2F256CB4710021713E /* ToAutoLayout.swift */; };
+		50167C33256CB4E80021713E /* ProgressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50167C32256CB4E80021713E /* ProgressCollectionViewCell.swift */; };
+		50167C36256CB4FD0021713E /* HabitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50167C35256CB4FD0021713E /* HabitCollectionViewCell.swift */; };
+		505C4E2C256E04B100AC4B1E /* HabitDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505C4E2B256E04B100AC4B1E /* HabitDetailsViewController.swift */; };
+		505C4E2F256E392400AC4B1E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505C4E2E256E392400AC4B1E /* Colors.swift */; };
 		50C29C9025539FCF00444079 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C29C8F25539FCF00444079 /* AppDelegate.swift */; };
 		50C29C9225539FCF00444079 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C29C9125539FCF00444079 /* SceneDelegate.swift */; };
 		50C29C9425539FCF00444079 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C29C9325539FCF00444079 /* ViewController.swift */; };
 		50C29C9725539FCF00444079 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50C29C9525539FCF00444079 /* Main.storyboard */; };
 		50C29C9925539FD400444079 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50C29C9825539FD400444079 /* Assets.xcassets */; };
 		50C29C9C25539FD400444079 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50C29C9A25539FD400444079 /* LaunchScreen.storyboard */; };
+		50C29CA62553A8DB00444079 /* HabitsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C29CA52553A8DB00444079 /* HabitsStore.swift */; };
+		50CB4DF42553D2420070DFE8 /* HabitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CB4DF32553D2410070DFE8 /* HabitsViewController.swift */; };
+		50CB4DF82553D6530070DFE8 /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CB4DF72553D6530070DFE8 /* HabitViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		50167C2F256CB4710021713E /* ToAutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToAutoLayout.swift; sourceTree = "<group>"; };
+		50167C32256CB4E80021713E /* ProgressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCollectionViewCell.swift; sourceTree = "<group>"; };
+		50167C35256CB4FD0021713E /* HabitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCollectionViewCell.swift; sourceTree = "<group>"; };
+		505C4E2B256E04B100AC4B1E /* HabitDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsViewController.swift; sourceTree = "<group>"; };
+		505C4E2E256E392400AC4B1E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		50C29C8C25539FCF00444079 /* MyHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50C29C8F25539FCF00444079 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50C29C9125539FCF00444079 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +37,9 @@
 		50C29C9825539FD400444079 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50C29C9B25539FD400444079 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		50C29C9D25539FD400444079 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50C29CA52553A8DB00444079 /* HabitsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitsStore.swift; sourceTree = "<group>"; };
+		50CB4DF32553D2410070DFE8 /* HabitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsViewController.swift; sourceTree = "<group>"; };
+		50CB4DF72553D6530070DFE8 /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +53,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		50167C38256CB5060021713E /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				50167C32256CB4E80021713E /* ProgressCollectionViewCell.swift */,
+				50167C35256CB4FD0021713E /* HabitCollectionViewCell.swift */,
+			);
+			path = CollectionViewCells;
+			sourceTree = "<group>";
+		};
+		505C4E28256E044400AC4B1E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				50CB4DF32553D2410070DFE8 /* HabitsViewController.swift */,
+				50CB4DF72553D6530070DFE8 /* HabitViewController.swift */,
+				505C4E2B256E04B100AC4B1E /* HabitDetailsViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		505C4E29256E046200AC4B1E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				50167C2F256CB4710021713E /* ToAutoLayout.swift */,
+				505C4E2E256E392400AC4B1E /* Colors.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		50C29C8325539FCF00444079 = {
 			isa = PBXGroup;
 			children = (
@@ -60,8 +104,12 @@
 				50C29C9125539FCF00444079 /* SceneDelegate.swift */,
 				50C29C9325539FCF00444079 /* ViewController.swift */,
 				50C29C9525539FCF00444079 /* Main.storyboard */,
+				505C4E28256E044400AC4B1E /* ViewControllers */,
+				505C4E29256E046200AC4B1E /* Helpers */,
+				50167C38256CB5060021713E /* CollectionViewCells */,
 				50C29C9825539FD400444079 /* Assets.xcassets */,
 				50C29C9A25539FD400444079 /* LaunchScreen.storyboard */,
+				50C29CA52553A8DB00444079 /* HabitsStore.swift */,
 				50C29C9D25539FD400444079 /* Info.plist */,
 			);
 			path = MyHabits;
@@ -94,7 +142,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = "Alex Permiakov";
 				TargetAttributes = {
 					50C29C8B25539FCF00444079 = {
@@ -138,9 +186,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50C29CA62553A8DB00444079 /* HabitsStore.swift in Sources */,
+				505C4E2F256E392400AC4B1E /* Colors.swift in Sources */,
+				50CB4DF82553D6530070DFE8 /* HabitViewController.swift in Sources */,
+				50167C36256CB4FD0021713E /* HabitCollectionViewCell.swift in Sources */,
 				50C29C9425539FCF00444079 /* ViewController.swift in Sources */,
 				50C29C9025539FCF00444079 /* AppDelegate.swift in Sources */,
+				50CB4DF42553D2420070DFE8 /* HabitsViewController.swift in Sources */,
 				50C29C9225539FCF00444079 /* SceneDelegate.swift in Sources */,
+				50167C33256CB4E80021713E /* ProgressCollectionViewCell.swift in Sources */,
+				505C4E2C256E04B100AC4B1E /* HabitDetailsViewController.swift in Sources */,
+				50167C30256CB4710021713E /* ToAutoLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,6 +248,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -216,7 +273,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -252,6 +309,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -270,7 +328,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
