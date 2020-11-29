@@ -37,7 +37,8 @@ class HabitViewController: UIViewController {
   private lazy var habitNameField: UITextField = {
     let textField = UITextField()
     textField.placeholder = "Бегать по утрам, спать 8 часов и т.п."
-    textField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+    textField.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+    textField.textColor = UIColor.AppColor.blue
     textField.returnKeyType = UIReturnKeyType.continue
     textField.addTarget(self, action: #selector(habitNameChanged), for: .editingChanged)
     textField.toAutoLayout()
