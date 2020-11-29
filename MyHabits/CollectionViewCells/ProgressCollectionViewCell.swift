@@ -30,8 +30,9 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     let progBar = UIProgressView(progressViewStyle: .bar)
     progBar.progressTintColor = UIColor.AppColor.purple
     progBar.backgroundColor = .systemGray2
-    progBar.clipsToBounds = true
+    progBar.layer.masksToBounds = true
     progBar.layer.cornerRadius = 4
+//    Без этой логики скругление применяется только с внешних краев, а на сиреневой линии внутри прогрессбара скругления нет. нашел решение на stackoverflow
     progBar.subviews.forEach { subview in
       subview.layer.masksToBounds = true
       subview.layer.cornerRadius = 4
@@ -45,13 +46,14 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     
     setupViews()
     contentView.backgroundColor = .white
+    progressBar.setProgress(HabitsStore.shared.todayProgress, animated: false)
   }
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)
   }
   
-  internal func checkProgress(progress: Float) {
+  func checkProgress(progress: Float) {
     progressBar.setProgress(progress, animated: true)
     percentLabel.text = "\(Int(progress * 100))%"
     

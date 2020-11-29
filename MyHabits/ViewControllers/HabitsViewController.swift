@@ -35,9 +35,9 @@ class HabitsViewController: UIViewController {
     
     navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAddHabit))
     navigationController?.navigationBar.tintColor = UIColor.AppColor.purple
+    navigationController?.navigationBar.backgroundColor = UIColor.AppColor.superLightGray
     
     habitVC.reloadDelegate = self
-    
     setupViews()
   }
   
@@ -57,8 +57,8 @@ class HabitsViewController: UIViewController {
     view.addSubview(collectionView)
     
     let constraints = [
-      collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+      collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
       collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
     ]
@@ -136,7 +136,6 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
 extension HabitsViewController: ReloadDataDelegate {
   
   func reloadHabits() {
-    print("reload delegate")
     collectionView.reloadData()
   }
 }

@@ -16,16 +16,20 @@ class HabitViewController: UIViewController {
   
   weak var dismissDelegate: DismissDelegate?
   
+  weak var titleDelagate: TitleDelegate?
+  
   var habit: Habit?
   
   var navTitle: String?
+  
+  var isInEditMode = false
   
   private lazy var habitName = ""
   
   private lazy var nameLabel: UILabel = {
     let label = UILabel()
     label.text = "НАЗВАНИЕ"
-    label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+    label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
     label.toAutoLayout()
     return label
   }()
@@ -43,7 +47,7 @@ class HabitViewController: UIViewController {
   private lazy var colorLabel: UILabel = {
     let label = UILabel()
     label.text = "ЦВЕТ"
-    label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+    label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
     label.toAutoLayout()
     return label
   }()
@@ -59,7 +63,7 @@ class HabitViewController: UIViewController {
   private lazy var timeLabel: UILabel = {
     let label = UILabel()
     label.text = "ВРЕМЯ"
-    label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+    label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
     label.toAutoLayout()
     return label
   }()
@@ -67,17 +71,17 @@ class HabitViewController: UIViewController {
   private lazy var everyDayLabel: UILabel = {
     let label = UILabel()
     label.text = "Каждый день в "
-    label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+    label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
     label.toAutoLayout()
     return label
   }()
   
-  private lazy var choosenTimeLabel: UILabel = {
+  private lazy var chosenTimeLabel: UILabel = {
     let label = UILabel()
     let currentDateTime = Date()
-    label.text = dateFormatter.string(from: currentDateTime)
+    label.text = timeFormatter.string(from: currentDateTime)
     label.textColor = UIColor.AppColor.purple
-    label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+    label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
     label.toAutoLayout()
     return label
   }()
@@ -98,25 +102,25 @@ class HabitViewController: UIViewController {
     return colorPicker
   }()
   
-  private lazy var dateFormatter: DateFormatter = {
+  private lazy var timeFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.timeStyle = .short
     return formatter
   }()
   
-  private lazy var deleteHabitLabel: UILabel = {
-    let label = UILabel()
-    label.textColor = .red
-    label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-    label.text = "Удалить привычку"
-    label.isUserInteractionEnabled = true
-    if navTitle == "Создать" {
-      label.isHidden = true
+  private lazy var deleteHabitButton: UIButton = {
+    let button = UIButton()
+    button.setTitle("Удалить привычку", for: .normal)
+    button.setTitleColor(.red, for: .normal)
+    button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+    button.addTarget(self, action: #selector(deleteHabit), for: .touchUpInside)
+    if !isInEditMode {
+      button.isHidden = true
     } else {
-      label.isHidden = false
+      button.isHidden = false
     }
-    label.toAutoLayout()
-    return label
+    button.toAutoLayout()
+    return button
   }()
   
   //  MARK: ViewDidLoad
@@ -127,15 +131,23 @@ class HabitViewController: UIViewController {
     setupLayout()
     view.backgroundColor = .white
     
-    if navTitle == "Править" {
+    if isInEditMode {
       loadHabitData(habit: habit!)
     }
     
     habitNameField.delegate = self
     colorPicker.delegate = self
-    
-    let tapDelete = UITapGestureRecognizer(target: self, action: #selector(deleteHabit))
-    deleteHabitLabel.addGestureRecognizer(tapDelete)
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    if !isInEditMode {
+      habitNameField.text = ""
+      habitName = ""
+      timePicker.date = Date()
+      chosenTimeLabel.text = dateFormatter.string(from: Date())
+      setColorButton.backgroundColor = UIColor.AppColor.orange
+    }
   }
   
   //  MARK: Actions
@@ -153,12 +165,11 @@ class HabitViewController: UIViewController {
   
   @objc private func saveHabit() {
     let store = HabitsStore.shared
-    if navTitle == "Создать" {
+    if !isInEditMode {
       let newHabit = Habit(name: habitName.isEmpty ? "Безымянная привычка" : habitName,
                            date: timePicker.date,
                            color: setColorButton.backgroundColor!)
       store.habits.append(newHabit)
-      store.save()
       print("Added new \(newHabit.name)")
     } else {
       if let oldHabit = habit {
@@ -166,8 +177,7 @@ class HabitViewController: UIViewController {
         oldHabit.date = timePicker.date
         oldHabit.color = setColorButton.backgroundColor!
       }
-      store.save()
-      print("Edited habit")
+      titleDelagate?.reloadTitle(title: habitName)
     }
     dismiss(animated: true, completion: nil)
     reloadDelegate?.reloadHabits()
@@ -200,7 +210,7 @@ class HabitViewController: UIViewController {
   }
   
   @objc private func dueDateChanged(sender: UIDatePicker){
-    choosenTimeLabel.text = dateFormatter.string(from: timePicker.date)
+    chosenTimeLabel.text = dateFormatter.string(from: timePicker.date)
   }
   
   //  MARK: Helpers
@@ -225,8 +235,8 @@ class HabitViewController: UIViewController {
     view.addSubview(timeLabel)
     view.addSubview(everyDayLabel)
     view.addSubview(timePicker)
-    view.addSubview(choosenTimeLabel)
-    view.addSubview(deleteHabitLabel)
+    view.addSubview(chosenTimeLabel)
+    view.addSubview(deleteHabitButton)
   }
   
   private func setupLayout() {
@@ -259,15 +269,15 @@ class HabitViewController: UIViewController {
       everyDayLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 7),
       everyDayLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: baseInset),
       
-      choosenTimeLabel.centerYAnchor.constraint(equalTo: everyDayLabel.centerYAnchor),
-      choosenTimeLabel.leadingAnchor.constraint(equalTo: everyDayLabel.trailingAnchor),
+      chosenTimeLabel.centerYAnchor.constraint(equalTo: everyDayLabel.centerYAnchor),
+      chosenTimeLabel.leadingAnchor.constraint(equalTo: everyDayLabel.trailingAnchor),
       
       timePicker.topAnchor.constraint(equalTo: everyDayLabel.bottomAnchor, constant: 15),
       timePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       timePicker.widthAnchor.constraint(equalToConstant: view.frame.width - baseInset*2),
       
-      deleteHabitLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      deleteHabitLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+      deleteHabitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      deleteHabitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
       
     ]
     NSLayoutConstraint.activate(constraints)

@@ -36,7 +36,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
     return label
   }()
   
-  private lazy var checkMarkLabel: UIButton = {
+  private lazy var checkMarkButton: UIButton = {
     let button = UIButton(primaryAction: UIAction { _ in
       self.checkHabit()
     })
@@ -47,16 +47,16 @@ class HabitCollectionViewCell: UICollectionViewCell {
   
   private var habit: Habit?
   
-  internal func configure(habit: Habit) {
+  func configure(habit: Habit) {
     habitNameLabel.text = habit.name
     habitNameLabel.textColor = habit.color
     dailyTimeLabel.text = habit.dateString
     timesInRowLabel.text = "Подряд: \(habit.trackDates.count)"
-    checkMarkLabel.tintColor = habit.color
+    checkMarkButton.tintColor = habit.color
     if habit.isAlreadyTakenToday {
-      checkMarkLabel.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
+      checkMarkButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
     } else {
-      checkMarkLabel.setImage(UIImage(systemName: "circle")!, for: .normal)
+      checkMarkButton.setImage(UIImage(systemName: "circle")!, for: .normal)
     }
     self.habit = habit
   }
@@ -72,7 +72,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
     super.init(coder: coder)
   }
   
-//  MARK: Actions
+  //  MARK: Actions
   func checkHabit() {
     print("CheckMark tapped")
     
@@ -80,16 +80,14 @@ class HabitCollectionViewCell: UICollectionViewCell {
       print("Taken")
       return
     }
-    checkMarkLabel.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
-    checkMarkLabel.imageView?.alpha = 0
+    checkMarkButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
+    checkMarkButton.imageView?.alpha = 0
     
     HabitsStore.shared.track(habit!)
     reloadDelegate?.reloadHabits()
     
-    let indexPath = IndexPath(row: 0, section: 0)
     UIView.animate(withDuration: 0.5, animations: {
-      (self.superview as! UICollectionView).reloadItems(at: [indexPath])
-      self.checkMarkLabel.imageView?.alpha = 1
+      self.checkMarkButton.imageView?.alpha = 1
     })
   }
   
@@ -97,18 +95,20 @@ class HabitCollectionViewCell: UICollectionViewCell {
   func setupViews() {
     
     contentView.layer.cornerRadius = 8
+    
+    //    Размер согласно макета 36х36
     let checkMarkWidth: CGFloat = 36
     
     contentView.addSubview(habitNameLabel)
     contentView.addSubview(dailyTimeLabel)
     contentView.addSubview(timesInRowLabel)
-    contentView.addSubview(checkMarkLabel)
+    contentView.addSubview(checkMarkButton)
     
     let constraints = [
       
       habitNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
       habitNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-      habitNameLabel.trailingAnchor.constraint(equalTo: checkMarkLabel.leadingAnchor, constant: -26),
+      habitNameLabel.trailingAnchor.constraint(equalTo: checkMarkButton.leadingAnchor, constant: -26),
       
       dailyTimeLabel.topAnchor.constraint(equalTo: habitNameLabel.bottomAnchor, constant: 4),
       dailyTimeLabel.leadingAnchor.constraint(equalTo: habitNameLabel.leadingAnchor),
@@ -116,10 +116,11 @@ class HabitCollectionViewCell: UICollectionViewCell {
       timesInRowLabel.leadingAnchor.constraint(equalTo: habitNameLabel.leadingAnchor),
       timesInRowLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
       
-      checkMarkLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 47),
-      checkMarkLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -47),
-      checkMarkLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -26),
-      checkMarkLabel.widthAnchor.constraint(equalToConstant: checkMarkWidth)
+      checkMarkButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 47),
+      checkMarkButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -47),
+      checkMarkButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -26),
+      checkMarkButton.widthAnchor.constraint(equalToConstant: checkMarkWidth),
+      checkMarkButton.heightAnchor.constraint(equalToConstant: checkMarkWidth)
       
     ]
     NSLayoutConstraint.activate(constraints)

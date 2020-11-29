@@ -17,10 +17,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eHX-gS-CLA">
-                                <rect key="frame" x="16" y="160" width="382" height="653"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <string key="text">Прохождение этапов, за которые за 21 день вырабатывается привычка, подчиняется следующему алгоритму:
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uM4-FB-nvm">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gG3-Fo-nj3" userLabel="ContentView">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="900"/>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Привычка за 21 день" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6nw-86-KYY">
+                                                <rect key="frame" x="16" y="22" width="382" height="34"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="34" id="Pfp-lu-DLM"/>
+                                                </constraints>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="k7h-hu-2ph">
+                                                <rect key="frame" x="16" y="72" width="382" height="812"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <accessibility key="accessibilityConfiguration">
+                                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                                </accessibility>
+                                                <string key="text">Прохождение этапов, за которые за 21 день вырабатывается привычка, подчиняется следующему алгоритму:
 
 1. Провести 1 день без обращения к старым привычкам, стараться вести себя так, как будто цель, загаданная в перспективу, находится на расстоянии шага.
 
@@ -36,31 +55,40 @@
 
 Источник: psychbook.ru
 </string>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Привычка за 21 день" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aAZ-Sx-291">
-                                <rect key="frame" x="16" y="110" width="382" height="34"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="k7h-hu-2ph" firstAttribute="leading" secondItem="gG3-Fo-nj3" secondAttribute="leading" constant="16" id="KA3-ab-7iA"/>
+                                            <constraint firstAttribute="trailing" secondItem="6nw-86-KYY" secondAttribute="trailing" constant="16" id="MEC-op-Sgs"/>
+                                            <constraint firstItem="k7h-hu-2ph" firstAttribute="top" secondItem="6nw-86-KYY" secondAttribute="bottom" constant="16" id="TgS-jq-o3C"/>
+                                            <constraint firstAttribute="trailing" secondItem="k7h-hu-2ph" secondAttribute="trailing" constant="16" id="WgV-69-8cL"/>
+                                            <constraint firstAttribute="bottom" secondItem="k7h-hu-2ph" secondAttribute="bottom" constant="16" id="gPv-WL-GdI"/>
+                                            <constraint firstAttribute="height" constant="900" id="h8W-LF-wu1"/>
+                                            <constraint firstItem="6nw-86-KYY" firstAttribute="top" secondItem="gG3-Fo-nj3" secondAttribute="top" constant="22" id="nmB-oR-3DS"/>
+                                            <constraint firstItem="6nw-86-KYY" firstAttribute="leading" secondItem="gG3-Fo-nj3" secondAttribute="leading" constant="16" id="wMs-oh-86h"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="viF-gM-XY7"/>
+                                    <constraint firstAttribute="trailing" secondItem="gG3-Fo-nj3" secondAttribute="trailing" id="GfR-19-sAK"/>
+                                    <constraint firstItem="gG3-Fo-nj3" firstAttribute="leading" secondItem="uM4-FB-nvm" secondAttribute="leading" id="bSV-56-VNA"/>
+                                    <constraint firstAttribute="bottom" secondItem="gG3-Fo-nj3" secondAttribute="bottom" id="eRq-XW-Pao"/>
+                                    <constraint firstItem="gG3-Fo-nj3" firstAttribute="top" secondItem="uM4-FB-nvm" secondAttribute="top" id="ky8-3P-y2z"/>
                                 </constraints>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3oe-yk-I1U"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="aAZ-Sx-291" firstAttribute="centerX" secondItem="hhj-Rj-Cte" secondAttribute="centerX" id="61V-Oy-eUb"/>
-                            <constraint firstItem="aAZ-Sx-291" firstAttribute="leading" secondItem="3oe-yk-I1U" secondAttribute="leading" constant="16" id="FHd-da-BBc"/>
-                            <constraint firstItem="eHX-gS-CLA" firstAttribute="leading" secondItem="3oe-yk-I1U" secondAttribute="leading" constant="16" id="cuq-hg-Sjb"/>
-                            <constraint firstItem="eHX-gS-CLA" firstAttribute="top" secondItem="aAZ-Sx-291" secondAttribute="bottom" constant="16" id="egw-rW-wrx"/>
-                            <constraint firstItem="3oe-yk-I1U" firstAttribute="trailing" secondItem="eHX-gS-CLA" secondAttribute="trailing" constant="16" id="noi-aE-f2H"/>
-                            <constraint firstItem="aAZ-Sx-291" firstAttribute="top" secondItem="3oe-yk-I1U" secondAttribute="top" constant="22" id="qvu-M8-85u"/>
-                            <constraint firstItem="eHX-gS-CLA" firstAttribute="bottom" secondItem="3oe-yk-I1U" secondAttribute="bottom" id="sMA-tj-UTT"/>
+                            <constraint firstItem="uM4-FB-nvm" firstAttribute="bottom" secondItem="3oe-yk-I1U" secondAttribute="bottom" id="1MU-lh-Dzg"/>
+                            <constraint firstItem="uM4-FB-nvm" firstAttribute="top" secondItem="3oe-yk-I1U" secondAttribute="top" id="P0b-tc-Hyh"/>
+                            <constraint firstItem="uM4-FB-nvm" firstAttribute="leading" secondItem="3oe-yk-I1U" secondAttribute="leading" id="hpU-gb-XGL"/>
+                            <constraint firstItem="gG3-Fo-nj3" firstAttribute="width" secondItem="hhj-Rj-Cte" secondAttribute="width" id="uXo-SK-Sxn"/>
+                            <constraint firstItem="uM4-FB-nvm" firstAttribute="trailing" secondItem="3oe-yk-I1U" secondAttribute="trailing" id="xHz-gH-dPT"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Информация" id="82O-b1-QrE"/>

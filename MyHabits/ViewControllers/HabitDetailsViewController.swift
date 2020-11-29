@@ -12,6 +12,10 @@ protocol DismissDelegate: class {
   func dismissVC()
 }
 
+protocol TitleDelegate: class {
+  func reloadTitle(title: String)
+}
+
 class HabitDetailsViewController: UITableViewController {
   
   var habit: Habit?
@@ -21,13 +25,10 @@ class HabitDetailsViewController: UITableViewController {
     
     tableView = UITableView(frame: CGRect.zero, style: .grouped)
     
-    tableView.register(TableViewCell.self, forCellReuseIdentifier: "Date")
+    tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Date")
     tableView.tintColor = UIColor.AppColor.purple
     
     navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action: #selector(tappedEditHabit))
-    
-    navigationController?.navigationBar.tintColor = UIColor.AppColor.purple
-    navigationController?.navigationBar.backgroundColor = UIColor.AppColor.superLightGray
     
   }
   //  MARK: Small title
@@ -39,8 +40,10 @@ class HabitDetailsViewController: UITableViewController {
   @objc private func tappedEditHabit() {
     let editHabitVC = HabitViewController()
     editHabitVC.navTitle = "Править"
+    editHabitVC.isInEditMode = true
     editHabitVC.habit = self.habit
     editHabitVC.dismissDelegate = self
+    editHabitVC.titleDelagate = self
     present(editHabitVC, animated: true, completion: nil)
   }
   
@@ -50,9 +53,11 @@ class HabitDetailsViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    let cell = self.tableView.dequeueReusableCell(withIdentifier: "Date", for: indexPath)
-    cell.textLabel?.text = HabitsStore.shared.trackDateString(forIndex: indexPath.row)
+    let reversedDates: [Date] = HabitsStore.shared.dates.reversed()
     
+    let cell = self.tableView.dequeueReusableCell(withIdentifier: "Date", for: indexPath)
+    cell.textLabel?.text = dateFormatter.string(from: reversedDates[indexPath.row])
+
     let date = HabitsStore.shared.dates[indexPath.row]
     if HabitsStore.shared.habit(habit!, isTrackedIn: date) {
       cell.accessoryType = .checkmark
@@ -67,12 +72,15 @@ class HabitDetailsViewController: UITableViewController {
   }
 }
 
-class TableViewCell: UITableViewCell {
-}
-
 extension HabitDetailsViewController: DismissDelegate {
   func dismissVC() {
-    print("dismiss delegate")
     navigationController?.popViewController(animated: false)
   }
 }
+
+extension HabitDetailsViewController: TitleDelegate {
+  func reloadTitle(title: String) {
+    navigationItem.title = title
+  }
+}
+
