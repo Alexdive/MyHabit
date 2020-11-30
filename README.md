@@ -2,5 +2,5 @@
 
 Habits tracker.
 
-Create and track new habits you want to develop in easy to use and and fun app!
+Create and track new habits you want to develop in easy to use and fun app!
 
