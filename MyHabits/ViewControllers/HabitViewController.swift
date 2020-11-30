@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class HabitViewController: UIViewController {
   
   weak var reloadDelegate: ReloadDataDelegate?
@@ -181,6 +179,7 @@ class HabitViewController: UIViewController {
       titleDelagate?.reloadTitle(title: habitName)
     }
     dismiss(animated: true, completion: nil)
+    alertHasShown = false
     reloadDelegate?.reloadHabits()
   }
   

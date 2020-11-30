@@ -12,6 +12,7 @@ protocol ReloadDataDelegate: class {
   func reloadHabits()
 }
 
+public var alertHasShown = false
 
 class HabitsViewController: UIViewController {
   
@@ -87,6 +88,18 @@ extension HabitsViewController: UICollectionViewDataSource {
       let progress = HabitsStore.shared.todayProgress
       progressCell.textLabel.text = HabitsStore.shared.habits.isEmpty ? "Добавьте привычку!" : "Все получится!"
       progressCell.checkProgress(progress: progress)
+      
+      if progress == 1 && !alertHasShown {
+        progressCell.textLabel.text = "Ура! На сегодня всё! 🥳🥳🥳"
+        let alertController = UIAlertController(title: "Отличная работа!", message: "Вы выполнили все привычки на сегодня!", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Я молодец! 😎", style: .default)
+        
+        alertController.addAction(cancelAction)
+      
+        self.present(alertController, animated: true, completion: nil)
+        alertHasShown = true
+      }
       return progressCell
       
     } else {
@@ -108,7 +121,6 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
     
     detailsVC.navigationItem.title = HabitsStore.shared.habits[indexPath.item].name
     detailsVC.habit = HabitsStore.shared.habits[indexPath.item]
-//    detailsVC.tableView.reloadData()
     navigationController?.pushViewController(detailsVC, animated: true)
   }
   
