@@ -108,6 +108,7 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
     
     detailsVC.navigationItem.title = HabitsStore.shared.habits[indexPath.item].name
     detailsVC.habit = HabitsStore.shared.habits[indexPath.item]
+//    detailsVC.tableView.reloadData()
     navigationController?.pushViewController(detailsVC, animated: true)
   }
   

@@ -34,6 +34,7 @@ class HabitDetailsViewController: UITableViewController {
   //  MARK: Small title
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    tableView.reloadData()
     navigationController?.navigationBar.prefersLargeTitles = false
   }
   
@@ -56,9 +57,9 @@ class HabitDetailsViewController: UITableViewController {
     let reversedDates: [Date] = HabitsStore.shared.dates.reversed()
     
     let cell = self.tableView.dequeueReusableCell(withIdentifier: "Date", for: indexPath)
-    cell.textLabel?.text = dateFormatter.string(from: reversedDates[indexPath.row])
+    cell.textLabel?.text = dateFormatter.string(from: reversedDates[indexPath.item])
 
-    let date = HabitsStore.shared.dates[indexPath.row]
+    let date = reversedDates[indexPath.item]
     if HabitsStore.shared.habit(habit!, isTrackedIn: date) {
       cell.accessoryType = .checkmark
     } else {

@@ -146,7 +146,7 @@ class HabitViewController: UIViewController {
       habitNameField.text = ""
       habitName = ""
       timePicker.date = Date()
-      chosenTimeLabel.text = dateFormatter.string(from: Date())
+      chosenTimeLabel.text = timeFormatter.string(from: Date())
       setColorButton.backgroundColor = UIColor.AppColor.orange
     }
   }
@@ -211,7 +211,7 @@ class HabitViewController: UIViewController {
   }
   
   @objc private func dueDateChanged(sender: UIDatePicker){
-    chosenTimeLabel.text = dateFormatter.string(from: timePicker.date)
+    chosenTimeLabel.text = timeFormatter.string(from: timePicker.date)
   }
   
   //  MARK: Helpers
