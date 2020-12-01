@@ -170,6 +170,7 @@ class HabitViewController: UIViewController {
                            date: timePicker.date,
                            color: setColorButton.backgroundColor!)
       store.habits.append(newHabit)
+      alertHasShown = false
       print("Added new \(newHabit.name)")
     } else {
       if let oldHabit = habit {
@@ -180,7 +181,6 @@ class HabitViewController: UIViewController {
       titleDelagate?.reloadTitle(title: habitName)
     }
     dismiss(animated: true, completion: nil)
-    alertHasShown = false
     reloadDelegate?.reloadHabits()
   }
   
