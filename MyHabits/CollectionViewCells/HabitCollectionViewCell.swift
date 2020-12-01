@@ -53,10 +53,11 @@ class HabitCollectionViewCell: UICollectionViewCell {
     dailyTimeLabel.text = habit.dateString
     timesInRowLabel.text = "Подряд: \(habit.trackDates.count)"
     checkMarkButton.tintColor = habit.color
+    let largeConfig = UIImage.SymbolConfiguration(textStyle: .largeTitle)
     if habit.isAlreadyTakenToday {
-      checkMarkButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
+      checkMarkButton.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: largeConfig)!, for: .normal)
     } else {
-      checkMarkButton.setImage(UIImage(systemName: "circle")!, for: .normal)
+      checkMarkButton.setImage(UIImage(systemName: "circle",withConfiguration: largeConfig)!, for: .normal)
     }
     self.habit = habit
   }
