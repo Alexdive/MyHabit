@@ -97,7 +97,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
     
     contentView.layer.cornerRadius = 8
     
-    //    Размер согласно макета 36х36
     let checkMarkWidth: CGFloat = 36
     
     contentView.addSubview(habitNameLabel)

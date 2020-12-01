@@ -86,22 +86,16 @@ extension HabitsViewController: UICollectionViewDataSource {
       
       let progressCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ProgressCollectionViewCell.self), for: indexPath) as! ProgressCollectionViewCell
       let progress = HabitsStore.shared.todayProgress
-      
-      var text = ""
-      if HabitsStore.shared.habits.isEmpty {
-        text = "Добавьте привычку!"
-      } else if progress == 1 {
-        text = "Ура! На сегодня всё! 🥳🥳🥳"
-      } else { text = "Все получится!" }
-      progressCell.textLabel.text = text
-      
+     
       progressCell.checkProgress(progress: progress)
-      
+
       if progress == 1 && !alertHasShown {
         let alertController = UIAlertController(title: "Отличная работа!", message: "Вы выполнили все привычки на сегодня!", preferredStyle: .alert)
+        alertController.setValue(NSAttributedString(string: alertController.title!, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .semibold), NSAttributedString.Key.foregroundColor: UIColor.AppColor.purple]), forKey: "attributedTitle")
+        alertController.view.tintColor = UIColor.AppColor.purple
         let cancelAction = UIAlertAction(title: "Я молодец! 😎", style: .default)
         alertController.addAction(cancelAction)
-        
+
         self.present(alertController, animated: true, completion: nil)
         alertHasShown = true
       }

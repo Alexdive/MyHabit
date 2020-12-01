@@ -155,6 +155,7 @@ class HabitViewController: UIViewController {
     habitName = habit.name
     timePicker.date = habit.date
     setColorButton.backgroundColor = habit.color
+    colorPicker.selectedColor = habit.color
   }
   
   @objc private func dismissEdit(sender: AnyObject) {
