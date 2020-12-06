@@ -56,15 +56,15 @@ class ProgressCollectionViewCell: UICollectionViewCell {
   func checkProgress(progress: Float) {
     progressBar.setProgress(progress, animated: true)
     percentLabel.text = "\(Int(progress * 100))%"
-    var text = ""
-    let motivationText = ["Все получится!", "Мы в тебя верим!", "Шаг за шагом к успеху!", "Не сдавайся!"]
-    let randomNumber = Int.random(in: 0..<motivationText.count)
+    var text: String?
+    
     if HabitsStore.shared.habits.isEmpty {
       text = "Добавьте привычку!"
     } else if progress == 1 {
       text = "Ура! На сегодня всё! 🥳🥳🥳"
     } else {
-      text = motivationText[randomNumber]
+      let motivationText = ["Все получится!", "Мы в тебя верим!", "Шаг за шагом к успеху!", "Не сдавайся!"]
+      text = motivationText.randomElement()
     }
     textLabel.text = text
   }

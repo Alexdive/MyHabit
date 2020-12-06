@@ -44,7 +44,7 @@ class HabitDetailsViewController: UITableViewController {
     editHabitVC.isInEditMode = true
     editHabitVC.habit = self.habit
     editHabitVC.dismissDelegate = self
-    editHabitVC.titleDelagate = self
+    editHabitVC.titleDelegate = self
     present(editHabitVC, animated: true, completion: nil)
   }
   

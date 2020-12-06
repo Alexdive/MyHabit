@@ -14,7 +14,7 @@ class HabitViewController: UIViewController {
   
   weak var dismissDelegate: DismissDelegate?
   
-  weak var titleDelagate: TitleDelegate?
+  weak var titleDelegate: TitleDelegate?
   
   var habit: Habit?
   
@@ -178,7 +178,7 @@ class HabitViewController: UIViewController {
         oldHabit.date = timePicker.date
         oldHabit.color = setColorButton.backgroundColor!
       }
-      titleDelagate?.reloadTitle(title: habitName)
+      titleDelegate?.reloadTitle(title: habitName)
     }
     dismiss(animated: true, completion: nil)
     reloadDelegate?.reloadHabits()
