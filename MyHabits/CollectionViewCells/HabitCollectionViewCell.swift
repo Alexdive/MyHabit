@@ -12,6 +12,8 @@ class HabitCollectionViewCell: UICollectionViewCell {
   
   weak var reloadDelegate: ReloadDataDelegate?
   
+  private var habit: Habit?
+  
   private lazy var habitNameLabel: UILabel = {
     let label = UILabel()
     label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -45,21 +47,21 @@ class HabitCollectionViewCell: UICollectionViewCell {
     return button
   }()
   
-  private var habit: Habit?
-  
   func configure(habit: Habit) {
+    self.habit = habit
     habitNameLabel.text = habit.name
     habitNameLabel.textColor = habit.color
     dailyTimeLabel.text = habit.dateString
-    timesInRowLabel.text = "Подряд: \(habit.trackDates.count)"
+    timesInRowLabel.text = "Выполнено: \(habit.trackDates.count)"
     checkMarkButton.tintColor = habit.color
     let largeConfig = UIImage.SymbolConfiguration(textStyle: .largeTitle)
     if habit.isAlreadyTakenToday {
-      checkMarkButton.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: largeConfig)!, for: .normal)
+        guard let checkMarkimage = UIImage(systemName: "checkmark.circle.fill", withConfiguration: largeConfig) else { return }
+      checkMarkButton.setImage(checkMarkimage, for: .normal)
     } else {
-      checkMarkButton.setImage(UIImage(systemName: "circle",withConfiguration: largeConfig)!, for: .normal)
+        guard let circleImage = UIImage(systemName: "circle",withConfiguration: largeConfig) else { return }
+      checkMarkButton.setImage(circleImage, for: .normal)
     }
-    self.habit = habit
   }
   
   override init(frame: CGRect) {
@@ -74,23 +76,22 @@ class HabitCollectionViewCell: UICollectionViewCell {
   }
   
   //  MARK: Actions
-  func checkHabit() {
-    print("CheckMark tapped")
-    
-    if habit!.isAlreadyTakenToday {
-      print("Taken")
-      return
+    func checkHabit() {
+        
+        if let habit = habit {
+            if habit.isAlreadyTakenToday { return }
+            guard let image = UIImage(systemName: "checkmark.circle.fill") else { return }
+            checkMarkButton.setImage(image, for: .normal)
+            checkMarkButton.imageView?.alpha = 0
+            
+            HabitsStore.shared.track(habit)
+            reloadDelegate?.reloadHabits()
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.checkMarkButton.imageView?.alpha = 1
+            })
+        }
     }
-    checkMarkButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
-    checkMarkButton.imageView?.alpha = 0
-    
-    HabitsStore.shared.track(habit!)
-    reloadDelegate?.reloadHabits()
-    
-    UIView.animate(withDuration: 0.5, animations: {
-      self.checkMarkButton.imageView?.alpha = 1
-    })
-  }
   
   // MARK: Layout
   func setupViews() {

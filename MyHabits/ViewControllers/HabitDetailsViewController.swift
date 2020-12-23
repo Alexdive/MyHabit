@@ -40,7 +40,6 @@ class HabitDetailsViewController: UITableViewController {
   
   @objc private func tappedEditHabit() {
     let editHabitVC = HabitViewController()
-    editHabitVC.navTitle = "Править"
     editHabitVC.isInEditMode = true
     editHabitVC.habit = self.habit
     editHabitVC.dismissDelegate = self
@@ -60,10 +59,12 @@ class HabitDetailsViewController: UITableViewController {
     cell.textLabel?.text = dateFormatter.string(from: reversedDates[indexPath.item])
 
     let date = reversedDates[indexPath.item]
-    if HabitsStore.shared.habit(habit!, isTrackedIn: date) {
-      cell.accessoryType = .checkmark
-    } else {
-      cell.accessoryType = .none
+    if let habit = habit {
+      if HabitsStore.shared.habit(habit, isTrackedIn: date) {
+        cell.accessoryType = .checkmark
+      } else {
+        cell.accessoryType = .none
+      }
     }
     return cell
   }

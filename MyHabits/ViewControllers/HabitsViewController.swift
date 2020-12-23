@@ -43,7 +43,6 @@ class HabitsViewController: UIViewController {
   }
   
   @objc private func tappedAddHabit() {
-    habitVC.navTitle = "Создать"
     navigationController?.present(habitVC, animated: true, completion: nil)
   }
   //  MARK: Large title
@@ -118,8 +117,10 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     guard indexPath.section != 0 else { return }
     
-    detailsVC.navigationItem.title = HabitsStore.shared.habits[indexPath.item].name
-    detailsVC.habit = HabitsStore.shared.habits[indexPath.item]
+    let selectedHabit = HabitsStore.shared.habits[indexPath.item]
+    
+    detailsVC.navigationItem.title = selectedHabit.name
+    detailsVC.habit = selectedHabit
     navigationController?.pushViewController(detailsVC, animated: true)
   }
   
