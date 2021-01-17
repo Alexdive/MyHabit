@@ -33,13 +33,11 @@ class HabitsViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAddHabit))
-    navigationController?.navigationBar.tintColor = UIColor.AppColor.purple
-    navigationController?.navigationBar.backgroundColor = UIColor.AppColor.superLightGray
+  
+    setupNavBar()
+    setupViews()
     
     habitVC.reloadDelegate = self
-    setupViews()
   }
   
   @objc private func tappedAddHabit() {
@@ -49,9 +47,24 @@ class HabitsViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     navigationController?.navigationBar.prefersLargeTitles = true
-    collectionView.reloadData()
+    reloadColView()
   }
   
+    func reloadColView() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+    
+  private func setupNavBar() {
+    title = "Сегодня"
+    navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                        target: self,
+                                                        action: #selector(tappedAddHabit))
+    navigationController?.navigationBar.tintColor = UIColor.AppColor.purple
+    navigationController?.navigationBar.backgroundColor = UIColor.AppColor.superLightGray
+  }
+    
   private func setupViews() {
     
     view.addSubview(collectionView)
@@ -149,7 +162,7 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
 extension HabitsViewController: ReloadDataDelegate {
   
   func reloadHabits() {
-    collectionView.reloadData()
+    reloadColView()
   }
 }
 

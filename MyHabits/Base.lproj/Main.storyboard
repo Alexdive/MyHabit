@@ -107,7 +107,7 @@
                         <viewLayoutGuide key="safeArea" id="2gH-TN-rDA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Сегодня" id="eYN-Eh-hYe"/>
+                    <navigationItem key="navigationItem" id="eYN-Eh-hYe"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p1m-yi-rzI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -34,8 +34,10 @@ class HabitDetailsViewController: UITableViewController {
   //  MARK: Small title
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    tableView.reloadData()
-    navigationController?.navigationBar.prefersLargeTitles = false
+    DispatchQueue.main.async {
+        self.tableView.reloadData()
+    }
+        navigationController?.navigationBar.prefersLargeTitles = false
   }
   
   @objc private func tappedEditHabit() {
